@@ -10,6 +10,12 @@ import java.net.URLConnection;
 
 import javax.swing.JButton;
 
+/**
+ * A JButton which will control camera orientation along one direction.
+ * 
+ * When pushed, the camera will be commanded to begin rotating, when released,
+ * the camera will be commanded to stop rotating.
+ */
 public class CameraControlButton extends JButton {
 	private static final int UP = 0;
 	private static final int STOPUP = 1;
@@ -33,6 +39,20 @@ public class CameraControlButton extends JButton {
 	private String pass;
 	private int direction;
 
+	/**
+	 * Creates a new CameraControlButton to command the camera at the given URL
+	 * by authenticating with the given username and password.
+	 * 
+	 * @param camURL
+	 *            The url of the camera to command
+	 * @param user
+	 *            The username to login to the camera
+	 * @param pass
+	 *            The password to login to the camera
+	 * @param direction
+	 *            One of DIRECTION_[UP|DOWN|LEFT|RIGHT] to determine what
+	 *            direction this button will control
+	 */
 	public CameraControlButton(String camURL, String user, String pass,
 			int direction) {
 		this.camURL = camURL;

@@ -12,9 +12,18 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.CanvasVideoSurface;
 import uk.co.caprica.vlcj.player.embedded.videosurface.VideoSurfaceAdapter;
 
+/**
+ * A JPanel to display video/audio from an IPCAM
+ */
 public class VideoPanel extends JPanel {
-	public static final int RESOLUTION_HIGH = 32; // corresponds to 640x480
-	public static final int RESOLUTION_LOW = 8; // corresponds to 320x480
+	/**
+	 * Corresponds to a resolution of 640x480
+	 */
+	public static final int RESOLUTION_HIGH = 32;
+	/**
+	 * Corresponds to a resolution of 320x480
+	 */
+	public static final int RESOLUTION_LOW = 8;
 
 	private static final String VIDEO_FEED = "videostream.asf";
 
@@ -25,6 +34,20 @@ public class VideoPanel extends JPanel {
 	private String pass;
 	private int resolution;
 
+	/**
+	 * Creates a new VideoPanel to playback video from the camera at the given
+	 * URL and authenticate with the given username and password.
+	 * 
+	 * @param camURL
+	 *            The url of the IPCAM to connect to
+	 * @param user
+	 *            The username to login the camera
+	 * @param pass
+	 *            The password to login the camera
+	 * @param resolution
+	 *            The resolution to use. This must be one of
+	 *            RESOLUTION_[LOW|HIGH].
+	 */
 	public VideoPanel(String camURL, String user, String pass, int resolution) {
 		this.camURL = camURL;
 		this.user = user;
@@ -41,6 +64,11 @@ public class VideoPanel extends JPanel {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Begins playback. Note that the VideoPanel MUST be visible
+	 * (setVisible(true)) before this can be called, or an exception will be
+	 * raised.
+	 */
 	public void start() {
 		String mediaString = String.format(
 				"%s/%s?user=%s&pwd=%s&resolution=%d", camURL, VIDEO_FEED, user,

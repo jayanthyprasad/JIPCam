@@ -6,14 +6,21 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * A button enabling control of a robot's motors by toggling the speeds of the
- * left and right motors
+ * A JPanel containing buttons to control camera orientation
  */
 public class MotionControlPanel extends JPanel {
 	/**
 	 * Constructor
 	 * 
-	 * Creates a new RobotMovementPanel
+	 * Creates a new MotionControlPanel to control the camera at camURL using
+	 * the given username and password
+	 * 
+	 * @param camURL
+	 *            The URL of the camera to connect to
+	 * @param user
+	 *            The username to login to the camera
+	 * @param pass
+	 *            The password to login to the camera
 	 */
 	public MotionControlPanel(String camURL, String user, String pass) {
 		this.setLayout(new GridLayout(1, 4));
