@@ -3,6 +3,7 @@ package ipcam;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -42,20 +43,17 @@ public class CameraControlButton extends JButton {
 		this.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				// do nothing
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				// do nothing
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-
+				// do nothing
 			}
 
 			@Override
@@ -105,15 +103,20 @@ public class CameraControlButton extends JButton {
 	}
 
 	private void sendCommand(int command) {
-		try {
-			String commandString = String.format(
-					"%s/%s?user=%s&pwd=%s&command=%d", camURL,
-					CONTROL_ENDPOINT, user, pass, command);
-			System.out.println("Sending command: " + commandString);
-			URLConnection connection = new URL(commandString).openConnection();
-			connection.connect();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		final String commandString = String.format(
+				"%s/%s?user=%s&pwd=%s&command=%d", camURL, CONTROL_ENDPOINT,
+				user, pass, command);
+		new Thread() {
+			public void run() {
+				try {
+					URLConnection connection = new URL(commandString)
+							.openConnection();
+					connection.connect();
+					connection.getContent();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
 	}
 }
